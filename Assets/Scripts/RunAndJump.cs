@@ -3,14 +3,14 @@ using System.Collections;
 
 public class RunAndJump : MonoBehaviour {
 
-	public float startDelay;
-	public float acceleration;
-	public float runningSpeed;
-	public float jumpForce;
-	public Bounds groundDetectionBox;
+	public float startDelay = 1;
+	public float acceleration = 5;
+	public float runningSpeed = 7;
+	public float jumpForce = 9;
+	public Bounds groundDetectionBox = new Bounds(new Vector2(0,-0.41f),new Vector2(1.12f,0.12f));
 	[Header("Stuck Settings")]
-	public float maximumStuckSpeed;
-	public float stuckJumpAngle;
+	public float maximumStuckSpeed = 0.2f;
+	public float stuckJumpAngle = 30;
 
 	
 	

@@ -12,13 +12,12 @@ public class FollowCam : MonoBehaviour {
 		
 	}
 	
-	void Update () {
+	void LateUpdate () {
 		Vector3 targetPos = target.position;
-		Vector3 currentPos = transform.position;
 		
 		targetPos.y = Mathf.Clamp( targetPos.y, minHeight, maxHeight );
 		
-		transform.Translate( easeAmount*(targetPos.x-currentPos.x),easeAmount*(targetPos.y-currentPos.y),0 );
+		transform.Translate( targetPos.x - transform.position.x, targetPos.y - transform.position.y, 0 );
 		
 	}
 }
