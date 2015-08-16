@@ -3,19 +3,25 @@ using System.Collections;
 
 public class RunAndJump : MonoBehaviour {
 
-	public float speed;
-	public float delay;
+	public float startDelay;
+	public float acceleration;
+	public float runningSpeed;
 	public float jumpForce;
 	public Bounds groundDetectionBox;
-	public bool isTouchingGround;
+	[Header("Stuck Settings")]
+	public float maximumStuckSpeed;
+	public float stuckJumpAngle;
+
 	
-	public bool running;
+	
+	bool isTouchingGround;
+	bool running;
 	Rigidbody2D body;	
 	
 	IEnumerator Start(){
 		body = GetComponent<Rigidbody2D>();
 		
-		yield return new WaitForSeconds(delay);
+		yield return new WaitForSeconds(startDelay);
 		
 		running = true;
 		GetComponent<Animator>().SetTrigger("Run");
@@ -28,14 +34,12 @@ public class RunAndJump : MonoBehaviour {
 		
 		isTouchingGround = Physics2D.OverlapArea( box.min, box.max, notCatLayers ) != null;
 		
-		
-	
 		if( running && Input.GetButtonDown("Jump") && isTouchingGround ){
-			GetComponent<Rigidbody2D>().AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
+			Jump();
 		}
 		
 		if( running && isTouchingGround ){
-			float differenceInSpeed = speed - body.velocity.x;
+			float differenceInSpeed = acceleration * Mathf.Max( runningSpeed - body.velocity.x, 0 );
 			body.AddForce(Vector2.right * differenceInSpeed );
 		}	
 	}
@@ -50,9 +54,21 @@ public class RunAndJump : MonoBehaviour {
 		Gizmos.DrawWireCube(box.center,box.size);					
 	}
 	
+	void Jump(){
+		Vector2 jumpDirection = Vector2.up;
+		if( IsStuck() ){
+			jumpDirection = Quaternion.Euler(0,0,stuckJumpAngle) * Vector3.up;
+		}
+		GetComponent<Rigidbody2D>().AddForce(jumpDirection*jumpForce,ForceMode2D.Impulse);
+	}
+	
 	Bounds GetFloorTestBox(){
 		Bounds ground = groundDetectionBox; 
 		ground.center += transform.position;
 		return ground;
+	}
+	
+	bool IsStuck(){
+		return Mathf.Abs( body.velocity.x ) <= maximumStuckSpeed;
 	}
 }

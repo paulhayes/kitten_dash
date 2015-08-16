@@ -15,5 +15,6 @@ public class ChangingObstacle : MonoBehaviour {
 		GetComponent<SpriteRenderer>().sprite = obstacleSpriteAfterCollision;
 		gameObject.AddComponent<Rigidbody2D>();
 		Destroy(this);
+		GetComponent<Collider2D>().enabled = false;
 	}
 }
