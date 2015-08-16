@@ -4,9 +4,9 @@ using System.Collections;
 public class FollowCam : MonoBehaviour {
 
 	public Transform target;
-	public float maxHeight;
-	public float minHeight;
-	public float easeAmount;
+	public float maxHeight = 3;
+	public float minHeight = 0;
+	public float easeAmount = 0.1f;
 
 	void Start () {
 		
