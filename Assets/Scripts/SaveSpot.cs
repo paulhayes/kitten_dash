@@ -15,6 +15,7 @@ public class SaveSpot : MonoBehaviour {
 		if(collider.gameObject.tag == "Respawn"){
 			Debug.Log("Respawn point "+collider.transform.position);
 			position = collider.transform.position;			
+			GameObject.Find ("ParticleSystem").GetComponent<ParticleSystem> ().Play ();
 		}
 	}
 }
