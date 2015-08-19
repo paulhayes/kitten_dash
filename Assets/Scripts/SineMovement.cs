@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovingPlatform : MonoBehaviour {
+public class SineMovement : MonoBehaviour {
 
 	public float height;
 	public float speed;
