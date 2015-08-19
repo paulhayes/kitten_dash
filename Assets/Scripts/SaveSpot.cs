@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SaveSpot : MonoBehaviour {
 
-	static Vector3 position = Vector3.zero;
+	public static Vector3 position = Vector3.zero;
 
 	void Awake(){
 		if( position != Vector3.zero ){
@@ -15,7 +15,7 @@ public class SaveSpot : MonoBehaviour {
 		if(collider.gameObject.tag == "Respawn"){
 			Debug.Log("Respawn point "+collider.transform.position);
 			position = collider.transform.position;			
-			GameObject.Find ("ParticleSystem").GetComponent<ParticleSystem> ().Play ();
+			collider.gameObject.GetComponentInChildren<ParticleSystem>().Play();
 		}
 	}
 }
