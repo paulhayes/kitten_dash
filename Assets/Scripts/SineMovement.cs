@@ -7,14 +7,17 @@ public class SineMovement : MonoBehaviour {
 	public float speed;
 	
 	Vector3 startPosition;
+	Rigidbody2D rigidbody;
 
 	void Start () {
 		startPosition = transform.position;
+		rigidbody = GetComponent<Rigidbody2D>();
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 		Vector3 position = startPosition;
 		position.y += height/2f * Mathf.Sin( speed * Time.time / 2f*Mathf.PI );
-		transform.position = position;
+		rigidbody.MovePosition( position );
+		
 	}
 }
