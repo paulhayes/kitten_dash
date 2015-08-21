@@ -11,7 +11,8 @@ public class RunAndJump : MonoBehaviour {
 	[Header("Stuck Settings")]
 	public float maximumStuckSpeed = 0.2f;
 	public float stuckJumpAngle = 30;
-
+	[Header("Sounds")]
+	public AudioSource jumpSound;
 	
 	
 	bool isTouchingGround;

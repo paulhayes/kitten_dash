@@ -6,14 +6,13 @@ public class ChangingObstacle : MonoBehaviour {
 	public Sprite obstacleSpriteAfterCollision;
 
 	void OnTriggerEnter2D(Collider2D collider){
-		
-		OnHitPlayer();
-		
+		if( collider.tag == "Player" ){
+			SendMessage("OnHitPlayer");		
+		}
 	}
 	
 	void OnHitPlayer(){
 		GetComponent<SpriteRenderer>().sprite = obstacleSpriteAfterCollision;
-		gameObject.AddComponent<Rigidbody2D>();
 		Destroy(this);
 		GetComponent<Collider2D>().enabled = false;
 	}
