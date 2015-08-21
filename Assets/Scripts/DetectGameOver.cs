@@ -24,11 +24,16 @@ public class DetectGameOver : MonoBehaviour {
 		string colliderLayerName = LayerMask.LayerToName( collider.gameObject.layer );
 		if( colliderLayerName  == gameOverLayer ){
 			SendMessage("OnGameOver");
+		}  
+	}
+	
+	void OnCollisionEnter2D(Collision2D collision){
+		
+		string colliderLayerName = LayerMask.LayerToName( collision.collider.gameObject.layer );
+		if( colliderLayerName  == gameOverLayer ){
+			SendMessage("OnGameOver");
 		}
 		
-		
-		
-		   
 	}
 	
 	IEnumerator OnGameOver(){

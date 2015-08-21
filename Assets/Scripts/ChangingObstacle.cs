@@ -11,6 +11,12 @@ public class ChangingObstacle : MonoBehaviour {
 		}
 	}
 	
+	void OnCollision2D(Collision2D collision){
+		if( collision.collider.tag == "Player" ){
+			SendMessage("OnHitPlayer");		
+		}
+	}
+	
 	void OnHitPlayer(){
 		GetComponent<SpriteRenderer>().sprite = obstacleSpriteAfterCollision;
 		Destroy(this);
