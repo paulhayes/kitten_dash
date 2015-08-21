@@ -57,6 +57,7 @@ public class RunAndJump : MonoBehaviour {
 	
 	void Jump(){
 		Vector2 jumpDirection = Vector2.up;
+		if( jumpSound != null ) jumpSound.Play();
 		if( IsStuck() ){
 			jumpDirection = Quaternion.Euler(0,0,stuckJumpAngle) * Vector3.up;
 		}
