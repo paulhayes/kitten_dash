@@ -6,11 +6,11 @@ public class PatrolMovement : MonoBehaviour {
 	public float leftPosition;
 	public float rightPosition;
 	public float speed;
-	Rigidbody2D rigidbody;
+	Rigidbody2D body;
 	bool movingRight = true;
 	
 	void Start () {
-		rigidbody = GetComponent<Rigidbody2D>();
+		body = GetComponent<Rigidbody2D>();
 	}
 	
 	void Update () {
@@ -24,20 +24,20 @@ public class PatrolMovement : MonoBehaviour {
     }
     
     void MoveRight(){
-    	if( rigidbody.position.x >= rightPosition ){
+		if( body.position.x >= rightPosition ){
     		movingRight = false;
-			rigidbody.velocity = Vector2.zero;
+			body.velocity = Vector2.zero;
 			transform.localScale = new Vector3(-1,1,1);
         }
-		else rigidbody.velocity = speed * Vector2.right;
+		else body.velocity = speed * Vector2.right;
     }
     
     void MoveLeft(){
-		if( rigidbody.position.x <= leftPosition ){
+		if( body.position.x <= leftPosition ){
 			movingRight = true;
-			rigidbody.velocity = Vector2.zero;
+			body.velocity = Vector2.zero;
 			transform.localScale = new Vector3(1,1,1);
         }
-        else rigidbody.velocity = speed * Vector2.left;
+		else body.velocity = speed * Vector2.left;
     }
 }

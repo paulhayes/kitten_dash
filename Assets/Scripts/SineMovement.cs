@@ -9,21 +9,21 @@ public class SineMovement : MonoBehaviour {
 	public float centerPosition;
 	public float timeOffset;
 	
-	Rigidbody2D rigidbody;
+	Rigidbody2D body;
 
 	void Start () {
-		rigidbody = GetComponent<Rigidbody2D>();
-		rigidbody.isKinematic = true;
+		body = GetComponent<Rigidbody2D>();
+		body.isKinematic = true;
 	}
 	
 	void Update () {
 		Vector3 position = transform.position;
 		position.y = centerPosition + height/2f * Mathf.Sin( speed * ( Time.time + timeOffset ) / 2f*Mathf.PI );
-		rigidbody.MovePosition( position );		
+		body.MovePosition( position );		
 	}
 	
 	void Fall(){
-		rigidbody.isKinematic = false;
+		body.isKinematic = false;
 		Destroy( this );
 	}
 	

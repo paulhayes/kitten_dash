@@ -3,14 +3,14 @@ using System.Collections;
 
 public class FallWhenTouched : MonoBehaviour {
 
-	Rigidbody2D rigidbody;
+	Rigidbody2D body;
 	
 	void Start () {
-		rigidbody = GetComponent<Rigidbody2D>();
-		rigidbody.isKinematic = true;
+		body = GetComponent<Rigidbody2D>();
+		body.isKinematic = true;
 	}
 	
 	void OnHitPlayer () {
-		rigidbody.isKinematic = false;
+		body.isKinematic = false;
 	}
 }

@@ -15,11 +15,14 @@ public class RunAndJump : MonoBehaviour {
 	public AudioSource jumpSound;
 	
 	
-	bool isTouchingGround;
+	public bool isTouchingGround;
 	bool running;
 	Rigidbody2D body;	
+	Collider2D[] overlappingColliders;
 	
 	IEnumerator Start(){
+	
+		overlappingColliders = new Collider2D[8];
 		body = GetComponent<Rigidbody2D>();
 		
 		yield return new WaitForSeconds(startDelay);
@@ -29,20 +32,31 @@ public class RunAndJump : MonoBehaviour {
 	}
 	
 	void Update(){
-	
-		int notCatLayers = ~(1<<gameObject.layer);
-		Bounds box = GetFloorTestBox();
-		
-		isTouchingGround = Physics2D.OverlapArea( box.min, box.max, notCatLayers ) != null;
 		
 		if( running && Input.GetButtonDown("Jump") && isTouchingGround ){
 			Jump();
 		}
 		
 		if( running && isTouchingGround ){
-			float differenceInSpeed = acceleration * Mathf.Max( runningSpeed - body.velocity.x, 0 );
-			body.AddForce(Vector2.right * differenceInSpeed );
+			//float differenceInSpeed = acceleration * Mathf.Max( runningSpeed - body.velocity.x, 0 );
+			//body.AddForce(Vector2.right * differenceInSpeed );
+			Vector2 velocity = body.velocity;
+			velocity.x = runningSpeed;
+			body.velocity = velocity;
 		}	
+	}
+	
+	void FixedUpdate(){
+		Bounds box = GetFloorTestBox();
+		int numColliders = Physics2D.OverlapAreaNonAlloc( box.min, box.max, overlappingColliders );
+		isTouchingGround = false;
+		
+		for( int i=0; i<numColliders; i++ ){
+			if( overlappingColliders[i].gameObject != gameObject ){
+				isTouchingGround = true;
+				break;
+			}
+		} 
 	}
 	
 	void OnGameOver(){
