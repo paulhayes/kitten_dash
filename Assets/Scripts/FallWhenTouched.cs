@@ -10,7 +10,12 @@ public class FallWhenTouched : MonoBehaviour {
 		body.isKinematic = true;
 	}
 	
-	void OnHitPlayer () {
-		body.isKinematic = false;
+	void OnCollision2D(Collision2D collision){
+		Debug.Log("Collision");
+		if( collision.collider.tag == "Player" ){
+			body.isKinematic = false;
+			SendMessage("Fall",SendMessageOptions.DontRequireReceiver);	
+		}
 	}
+
 }

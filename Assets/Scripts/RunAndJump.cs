@@ -14,6 +14,9 @@ public class RunAndJump : MonoBehaviour {
 	[Header("Sounds")]
 	public AudioSource jumpSound;
 	
+	public bool hasDoubleJump;
+	public int jumpCounter;
+	
 	
 	public bool isTouchingGround;
 	bool running;
@@ -33,7 +36,10 @@ public class RunAndJump : MonoBehaviour {
 	
 	void Update(){
 		
-		if( running && Input.GetButtonDown("Jump") && isTouchingGround ){
+		bool canJump = isTouchingGround || ( hasDoubleJump && jumpCounter == 0 ); 
+		if( running && Input.GetButtonDown("Jump") && canJump ){
+			if( ! isTouchingGround ) jumpCounter++;
+			else jumpCounter=0;
 			Jump();
 		}
 		
@@ -43,7 +49,7 @@ public class RunAndJump : MonoBehaviour {
 			Vector2 velocity = body.velocity;
 			velocity.x = runningSpeed;
 			body.velocity = velocity;
-		}	
+		}
 	}
 	
 	void FixedUpdate(){
@@ -76,6 +82,14 @@ public class RunAndJump : MonoBehaviour {
 			jumpDirection = Quaternion.Euler(0,0,stuckJumpAngle) * Vector3.up;
 		}
 		GetComponent<Rigidbody2D>().AddForce(jumpDirection*jumpForce,ForceMode2D.Impulse);
+	}
+	
+	void EnableDoubleJump(){
+		hasDoubleJump = true;
+	}
+	
+	void DisableDoubleJump(){
+		hasDoubleJump = false;
 	}
 	
 	Bounds GetFloorTestBox(){

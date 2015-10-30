@@ -5,7 +5,7 @@ public class SaveSpot : MonoBehaviour {
 
 	public static Vector3 position = Vector3.zero;
 
-	void Start(){
+	void Awake(){
 		if( position != Vector3.zero ){
 			transform.position = position;			
 		}

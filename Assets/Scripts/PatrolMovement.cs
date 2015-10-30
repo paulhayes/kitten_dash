@@ -13,7 +13,7 @@ public class PatrolMovement : MonoBehaviour {
 		body = GetComponent<Rigidbody2D>();
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 		if( movingRight ){
 			MoveRight();
 		}
